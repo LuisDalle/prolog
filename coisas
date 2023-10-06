@@ -1,0 +1,60 @@
+progenitor(jose, joão).
+progenitor(jose, ana).
+progenitor(maria, joão).
+progenitor(maria, ana).
+progenitor(ana, helena).
+progenitor(ana, joana).
+progenitor(joao, mario).
+progenitor(helena, carlos).
+progenitor(mario, carlos).
+sexo(jose, masc).
+sexo(joão, masc).
+sexo(mario, masc).
+sexo(carlos, masc).
+sexo(maria, fem).
+sexo(ana, fem).
+sexo(helena, fem).
+sexo(joana, fem).
+irmão(X, Y):-
+    progenitor(Z, X),
+    progenitor(Z, Y),
+    X\==Y,
+    sexo(X, masc).
+irmã(X, Y):-
+    progenitor(Z, X),
+    progenitor(Z, Y),
+    X\==Y,
+    sexo(X, fem).
+descendente(X, Y):-
+    progenitor(Y, X).
+descendente(X, Y):-
+    progenitor(X, Z),
+    descendente(Z, Y).
+mãe(X, Y):-
+    progenitor(X, Y),
+    sexo(X, fem).
+pai(X, Y):-
+    progenitor(X, Y),
+    sexo(X, masc).
+tio(X, Y):-
+    progenitor(Z, Y),
+    irmão(Z, X).
+filho(X, Y):-
+    progenitor(Y, X),
+    sexo(X, masc).
+filha(X, Y):-
+    progenitor(Y, X),
+    sexo(X, fem).
+primo(X, Y):-
+    irmão(Z, A), 
+    progenitor(A, X),
+    progenitor(Z, Y),
+    X\==Y.
+primo(X, Y):-
+    irmã(Z, A), 
+    filho(X, Z),
+    filho(Y, A),
+    X\==Y.
+    
+    
+	
